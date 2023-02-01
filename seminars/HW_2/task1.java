@@ -17,7 +17,14 @@ public class task1 {
         String originalString = br.readLine();
         br.close();
         System.out.println(originalString);
-    
+
+        StringBuilder request = new StringBuilder("SELECT * FROM students WHERE ");
+
+        String a = GetString(originalString);
+        String[][] pairs = getPairsArray(a);
+        String result = getRequestString(request, pairs);
+        
+        System.out.println(result);
     }
 
     // Убираем фигурные скобки по краям
@@ -43,7 +50,7 @@ public class task1 {
         return pairsArray;
     }
 
-    // Формируем результат
+    // Формируем строку-результат
     static String getRequestString (StringBuilder sb, String[][] splittedPairs){
         for (int i = 0; i < splittedPairs.length; i++) {
             String key = splittedPairs[i][0];
