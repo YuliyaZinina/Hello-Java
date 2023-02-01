@@ -7,75 +7,65 @@
 // Студент Краснов получил 5 по предмету Физика.
 
 package seminars.HW_2;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.PushbackInputStream;
 import java.util.Arrays;
 
-public class task3 {
+public class task3test {
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new FileReader("/Users/arainay/GeekBrains/Hello Java/seminars/HW_2/task3File.txt")); 
         String originalString = br.readLine();
         br.close();
         System.out.println(originalString);
 
-        String startString = getString(originalString);
-        System.out.println(startString);
+        // убираем []
+        String startStr = GetString(originalString);
+        // System.out.println(startStr);
 
-        String[] studentsArray = getStudentsArray(startString, ", ");
-        System.out.println(Arrays.toString(studentsArray));
+        // формируем массив записей
+        String[] startArr = startStr.split(", ");
 
-        for (int i = 0; i < studentsArray.length; i++) {
-            String[][] studentArray;
-            studentArray[i] = studentsArray[i].split(",");
+        
+        // Формируем массив данных
+        String[] resultArray = new String[startArr.length];
+        for (int i = 0; i < startArr.length; i++){
+            String a = GetString(startArr[i]);
+
+            String[] b = a.split(",");
+
+            StringBuilder sb = new StringBuilder();
+
+            for (int j = 0; j < b.length; j++){
+                String[] c = b[j].split(":");
+                String value = GetString(c[1]);
+
+                switch (j) {
+                    case 0: sb.append("Студент ");
+                    sb.append(value);
+                    break;
+                    case 1: sb.append(" получил ");
+                    sb.append(value);
+                    break;
+                    case 2: sb.append(" по предмету ");
+                    sb.append(value);
+                    break;
+                }
+            }
+            resultArray[i] = sb.toString();
         }
+        System.out.println(Arrays.toString(resultArray));
+        
+        
+        
+
+
     }
-    // Убираем символы (скобки) по краям
-    static String getString (String a){
+
+    // Убираем фигурные скобки по краям
+    static String GetString (String a){
         String b = a.substring(1, a.length()-1);
         return b;
     }
-
-    // Получаем массив записей о студентах, удаляем скобки и считаем их количество
-    static String[] getStudentsArray (String str, String reg) {
-        String[] studentsArray = str.split(reg);
-        int count = 0;
-        for (int i = 0; i < studentsArray.length; i++) {
-            studentsArray[i] = getString(studentsArray[i]);
-            count += 1;
-        }
-        return studentsArray;
-    }
-
-    // Получаем массив данных
-    static void getData (String[]array){
-        String[][] student = new String[1][array.length];
-        for (int i = 0; i < array.length; i++){
-            String[][] d = getPairsArray(array[i]);
-            System.out.println(d);
-        }
-    }
-
-
-    static String[][] getPairsArray (String b){
-        // Разделяем строку на пары и считаем их количество
-        String[] pairs = b.split(", ");
-        int count = 0;
-        for (int i = 0; i < pairs.length; i++) {
-            count += 1;
-        }
-
-        // Создаём массив массивов значений пар
-        String[][] pairsArray = new String [count][2];
-    
-        for (int i = 0; i < pairs.length; i++) {
-            pairsArray[i] = pairs[i].split(":");
-        }
-        return pairsArray;
-    }
-
-    // Формируем результат
-    
-
-    
-    
 }
