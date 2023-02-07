@@ -9,7 +9,6 @@ public class task2 {
     
     public static void main(String[] args) {
         List <Integer> numbers = new ArrayList<>();
-        List <Integer> result = new ArrayList<>();
 
         Random random = new Random();
         
@@ -20,10 +19,11 @@ public class task2 {
 
         for (int i = 0; i < numbers.size(); i++) {
             int item = numbers.get(i);
-            if (item%2 != 0) {
-                result.add(item);
+            if (item%2 == 0) {
+                numbers.remove(i);
+                i--;
             }
         }
-        System.out.println(result);
+        System.out.println(numbers);
     }
 }
