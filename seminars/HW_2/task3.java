@@ -10,10 +10,10 @@ package seminars.HW_2;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.PushbackInputStream;
+// import java.io.PushbackInputStream;
 import java.util.Arrays;
 
-public class task3test {
+public class task3 {
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new FileReader("/Users/arainay/GeekBrains/Hello Java/seminars/HW_2/task3File.txt")); 
         String originalString = br.readLine();
@@ -56,11 +56,6 @@ public class task3test {
             resultArray[i] = sb.toString();
         }
         System.out.println(Arrays.toString(resultArray));
-        
-        
-        
-
-
     }
 
     // Убираем фигурные скобки по краям
