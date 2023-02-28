@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+// import Java.finalHW.Notebook;
+
 /**
 1. Подумать над структурой класса Ноутбук для магазина техники - выделить поля и методы. Реализовать в java.
 2. Создать множество ноутбуков.
@@ -33,14 +35,14 @@ public class Main {
         notebooks.add(new Notebook("Apple", "MacBook Pro", 16, 512, "macOS", "gray", 236999));
         notebooks.add(new Notebook("HP", "Creator", 16, 2000, "Windows", "black", 224999));
 
-        String[] parameters = new String[] {"Производитель", "ОЗУ", "Объём жесткого диска", "Операционная система", "Цвет", "Цена"};
+        String[] parameters = new String[] {"Производитель", "ОЗУ", "Объём жесткого диска", "Операционная система", "Цена"};
         String parametersTitle = "Параметры поиска";
         printQuestion(parameters, parametersTitle);
 
         String[] manufacturers = new String[] {"Irbis", "DEXP", "Aser", "HP", "Apple"};
         String manufacturersTitle = "Производители";
 
-        String[] operationSystems = new String[] {"Windows", "MacOS", "без ОС"};
+        String[] operationSystems = new String[] {"Windows", "MacOS", "Linux", "без ОС"};
         String osTitle = "Операционные системы";
 
 
@@ -54,55 +56,18 @@ public class Main {
                 
                 int a = in.nextInt();
                 in.close();
-                System.out.println("Результаты поиска: ");
-                if (a == 1){
-                    for (Notebook item: notebooks) {
-                        if (item.getManufacturer().equals("Irbis")) {
-                            printNotebook(item);
-                        }
-                    }
-                }
-                else if (a == 2){
-                    for (Notebook item: notebooks) {
-                        if (item.getManufacturer().equals("DEXP")) {
-                            printNotebook(item);
-                        }
-                    }
-                }
-                else if (a == 3){
-                    for (Notebook item: notebooks) {
-                        if (item.getManufacturer().equals("Aser")) {
-                            printNotebook(item);
-                        }
-                    }
-                }
-                else if (a == 4){
-                    printQuestion(operationSystems, osTitle);
-                    for (Notebook item: notebooks) {
-                        if (item.getManufacturer().equals("HP")) {
-                            printNotebook(item);
-                        }
-                    }
-                }
-                else if (a == 5){
-                    for (Notebook item: notebooks) {
-                        if (item.getManufacturer().equals("Apple")) {
-                            printNotebook(item);
-                        }
-                    }
-                }
-                else{
-                    System.out.println("Вы ввели что-то не то, перезапустите программу");
-                }
-                
 
+                System.out.println("Результаты поиска: ");
+                searchByManufacturer(a, notebooks);
                 break;
 
             case 2:
                 System.out.println("Введите цифру, соответствующую минимальному объему оперативной памяти.\n");
                 int b = in.nextInt();
                 in.close();
-                System.out.println(b);
+
+                System.out.println("Результаты поиска: ");
+                searchByRam(b, notebooks);
 
                 break;
 
@@ -110,7 +75,28 @@ public class Main {
                 System.out.println("Введите цифру, соответствующую минимальному объему жесткого диска\n");
                 int с = in.nextInt();
                 in.close();
-                System.out.println(с);
+                
+                System.out.println("Результаты поиска: ");
+                searchByHardDrive(с, notebooks);
+                break;
+
+            case 4:
+                printQuestion(operationSystems, osTitle);
+                
+                int d = in.nextInt();
+                in.close();
+
+                System.out.println("Результаты поиска: ");
+                searchByOs(d, notebooks);
+                break;
+
+            case 5:
+                System.out.println("Введите цифру, соответствующую максимальному значению цены.\n");
+                int e = in.nextInt();
+                in.close();
+
+                System.out.println("Результаты поиска: ");
+                searchByPrice(e, notebooks);
 
                 break;
         
@@ -132,6 +118,99 @@ public class Main {
     public static void printNotebook(Notebook n) {
         System.out.printf("%s %s\n ОЗУ - %d ГБ, объём жёсткого диска - %d ГБ, Операционная система - %s, цвет корпуса - %s\n цена - %d руб\n\n",
          n.getManufacturer(), n.getModel(), n.getRam(), n.getHardDrive(), n.getOs(), n.getColor(), n.getPrice());
+    }
+
+    public static void searchByOs(int a, List<Notebook> nb) {
+        if (a == 1){
+            for (Notebook item: nb) {
+                if (item.getOs().equals("Windows")) {
+                    printNotebook(item);
+                }
+            }
+        }
+        else if (a == 2){
+            for (Notebook item: nb) {
+                if (item.getOs().equals("MacOs")) {
+                    printNotebook(item);
+                }
+            }
+        }
+        else if (a == 3){
+            for (Notebook item: nb) {
+                if (item.getOs() == null) {
+                    printNotebook(item);
+                }
+            }
+        }
+        else{
+            System.out.println("Ничего не найдено");
+        }
+    }
+
+    public static void searchByRam(int b, List<Notebook> nb){
+        for (Notebook item: nb) {
+            if (item.getRam() >= b) {
+                printNotebook(item);
+            }
+        }
+    }
+
+    public static void searchByHardDrive(int c, List<Notebook> nb){
+        for (Notebook item: nb) {
+            if (item.getHardDrive() >= c) {
+                printNotebook(item);
+            }
+        }
+    }
+
+    
+    public static void searchByManufacturer(int a, List<Notebook> nb) {
+        if (a == 1){
+            for (Notebook item: nb) {
+                if (item.getManufacturer().equals("Irbis")) {
+                    printNotebook(item);
+                }
+            }
+        }
+        else if (a == 2){
+            for (Notebook item: nb) {
+                if (item.getManufacturer().equals("DEXP")) {
+                    printNotebook(item);
+                }
+            }
+        }
+        else if (a == 3){
+            for (Notebook item: nb) {
+                if (item.getManufacturer().equals("Aser")) {
+                    printNotebook(item);
+                }
+            }
+        }
+        else if (a == 4){
+            for (Notebook item: nb) {
+                if (item.getManufacturer().equals("HP")) {
+                    printNotebook(item);
+                }
+            }
+        }
+        else if (a == 5){
+            for (Notebook item: nb) {
+                if (item.getManufacturer().equals("Apple")) {
+                    printNotebook(item);
+                }
+            }
+        }
+        else{
+            System.out.println("Ничего не найдено");
+        }
+    }
+
+    public static void searchByPrice(int b, List<Notebook> nb){
+        for (Notebook item: nb) {
+            if (item.getPrice() <= b) {
+                printNotebook(item);
+            }
+        }
     }
 
 }
