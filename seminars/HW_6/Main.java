@@ -33,63 +33,66 @@ public class Main {
         notebooks.add(new Notebook("Apple", "MacBook Pro", 16, 512, "macOS", "gray", 236999));
         notebooks.add(new Notebook("HP", "Creator", 16, 2000, "Windows", "black", 224999));
 
-        System.out.println("Введите цифру, соответствующую необходимому критерию:\n" +
-                            "1 - производитель,\n" +
-                            "2 - ОЗУ,\n" +
-                            "3 - Объем ЖД,\n" +
-                            "4 - Операционная система,\n" +
-                            "5 - Цвет,\n" +
-                            "6 - цена");
+        String[] parameters = new String[] {"Производитель", "ОЗУ", "Объём жесткого диска", "Операционная система", "Цвет", "Цена"};
+        String parametersTitle = "Параметры поиска";
+        printQuestion(parameters, parametersTitle);
+
+        String[] manufacturers = new String[] {"Irbis", "DEXP", "Aser", "HP", "Apple"};
+        String manufacturersTitle = "Производители";
+
+        String[] operationSystems = new String[] {"Windows", "MacOS", "без ОС"};
+        String osTitle = "Операционные системы";
+
 
         Scanner in = new Scanner(System.in);
         int answer = in.nextInt();
         
-
+        
         switch (answer) {
             case 1:
-                System.out.println("Введите цифру, соответствующую нужному производителю:\n" +
-                    "1 - Irbis,\n" +
-                    "2 - DEXP,\n" +
-                    "3 - Aser,\n" +
-                    "4 - HP,\n" +
-                    "5 - Apple");
+                printQuestion(manufacturers, manufacturersTitle);
+                
                 int a = in.nextInt();
                 in.close();
                 System.out.println("Результаты поиска: ");
                 if (a == 1){
                     for (Notebook item: notebooks) {
                         if (item.getManufacturer().equals("Irbis")) {
-                            System.out.println(item);
+                            printNotebook(item);
                         }
                     }
                 }
                 else if (a == 2){
                     for (Notebook item: notebooks) {
                         if (item.getManufacturer().equals("DEXP")) {
-                            System.out.println(item);
+                            printNotebook(item);
                         }
                     }
                 }
                 else if (a == 3){
                     for (Notebook item: notebooks) {
                         if (item.getManufacturer().equals("Aser")) {
-                            System.out.println(item);
+                            printNotebook(item);
                         }
                     }
                 }
                 else if (a == 4){
+                    printQuestion(operationSystems, osTitle);
                     for (Notebook item: notebooks) {
                         if (item.getManufacturer().equals("HP")) {
-                            System.out.println(item);
+                            printNotebook(item);
+                        }
+                    }
+                }
+                else if (a == 5){
+                    for (Notebook item: notebooks) {
+                        if (item.getManufacturer().equals("Apple")) {
+                            printNotebook(item);
                         }
                     }
                 }
                 else{
-                    for (Notebook item: notebooks) {
-                        if (item.getManufacturer().equals("Apple")) {
-                            System.out.println(item);
-                        }
-                    }
+                    System.out.println("Вы ввели что-то не то, перезапустите программу");
                 }
                 
 
@@ -115,5 +118,20 @@ public class Main {
                 break;
 
         }
-    }    
+    }   
+
+    public static void printQuestion(String[] array, String title) {
+        String questionText = title + ". Введите цифру, соответствующую нужному варианту:\n";
+        for (int i = 0; i < array.length; i++) {
+            questionText += Integer.toString(i+1) + " - " + array[i] + "\n";
+
+        }
+        System.out.println(questionText);
+    }
+
+    public static void printNotebook(Notebook n) {
+        System.out.printf("%s %s\n ОЗУ - %d ГБ, объём жёсткого диска - %d ГБ, Операционная система - %s, цвет корпуса - %s\n цена - %d руб\n\n",
+         n.getManufacturer(), n.getModel(), n.getRam(), n.getHardDrive(), n.getOs(), n.getColor(), n.getPrice());
+    }
+
 }
