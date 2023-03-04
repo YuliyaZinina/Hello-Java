@@ -18,7 +18,7 @@ public class Human {
     Human father;
     Human mother;
     Human spouse;
-    ArrayList<Human> children;
+    ArrayList<Human> children = new ArrayList<>(); //изменить на Set, чтобы исключить дубликаты => ??переопределить?? .equals()
 
     {
         id = count;
@@ -34,32 +34,26 @@ public class Human {
      * @param father отец
      * @param mother мать
      * @param spouse супруг/супруга
-     * @param children дети
      */
-    public Human(String name, String surname, String sex, Human father, Human mother, Human spouse, ArrayList<Human> children) {
+    public Human(String name, String surname, String sex, Human father, Human mother, Human spouse) {
         this.name = name;
         this.surname = surname;
         this.sex = sex;
         this.father = father;
         this.mother = mother;
         this.spouse = spouse;
-        this.children = children;
     }
 
     public Human(String name, String surname, String sex){
-        this(name, surname, sex, null, null, null, null);
+        this(name, surname, sex, null, null, null);
     }
 
     public Human(String sex) {
         this("имя: неизвестно", "фамилия: неизвестно", sex, 
-        null, null, null, null);
+        null, null, null);
     }
 
-    @Override
-    public String toString() {
-        return name + " " + surname + "\nid: " + id + "\n";   
-    }
-
+    
     public int getId() {
         return id;
     }
@@ -104,19 +98,35 @@ public class Human {
 
     public void setFather(Human father) {
         this.father = father;
+        // если у отца нет этого ребенка в списке детей, добавляем ему ребенка
+        if (father.children.contains(this) == false) {
+            father.children.add(this);
+        }
     }
 
     public void setMother(Human mother) {
         this.mother = mother;
+        if (mother.children.contains(this) == false) {
+            mother.children.add(this);
+        }
     }
 
     public void setSpouse(Human spouse) {
         this.spouse = spouse;
+        if (spouse.getSpouse() == null){
+            spouse.setSpouse(this);
+        }
+        
     }
 
     public void setChildren(Human child) {
-        this.children.add(child);
+        if (this.children.contains(child) == false) {
+            children.add(child);
+        }
     }
 
-    
+    @Override
+    public String toString() {
+        return name + " " + surname;   
+    }
 }
