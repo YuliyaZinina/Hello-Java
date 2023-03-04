@@ -51,8 +51,5 @@ public class familyTree {
         lena.setSpouse(fedya);
 
         ann.setSpouse(vanya);
-
-        System.out.println(ann.getChildren());
-        // System.out.println(mary.getSpouse());
     }
 }
